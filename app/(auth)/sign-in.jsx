@@ -23,9 +23,11 @@ const SignIn = () => {
     }
     try {
       const response = await loginUser({ email, password });
-      const token = response.data.token;
-      console.log(response.data);
+      const { user, token } = response.data;
+
       await AsyncStorage.setItem("jwtToken", token);
+      await AsyncStorage.setItem("name", user.name);
+      await AsyncStorage.setItem("userId", user._id);
       router.replace("/home");
     } catch (error) {
       Alert.alert("Sign-in failed", error.message || "An error occured");

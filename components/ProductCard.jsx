@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomButton from "./CustomButton";
+import { StatusBar } from "expo-status-bar";
 
 const ProductCard = ({ item }) => {
   return (

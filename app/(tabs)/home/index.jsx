@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Image, View } from "react-native";
+import { ScrollView, Image, View, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../../constants/images";
 import CarouselComponent from "../../../components/CarouselComponent";
 import HorizontalList from "../../../components/HorizontalList";
 import SearchInput from "../../../components/SearchInput";
-import { getAllCategories } from "../../../api";
+import {
+  getAllCategories,
+  getAllProducts,
+  getTopSellingProducts,
+} from "../../../api";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +21,6 @@ const Home = () => {
     const getCategory = async () => {
       try {
         const response = await getAllCategories();
-        console.log(response.data);
         setCategories(response.data);
       } catch (error) {
         setError(error.message);
@@ -27,10 +31,23 @@ const Home = () => {
 
     getCategory();
   }, []);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const response = await getTopSellingProducts();
+      console.log(response.data);
+      setProducts(response.data.topProducts);
+    };
+    getProducts();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
   return (
     <SafeAreaView className="flex-1">
       <ScrollView nestedScrollEnabled>
-        <View className="px-4 my-6">
+        <View className="p-4 my-6">
           {/* Search Input Component */}
           <SearchInput />
 
@@ -45,7 +62,7 @@ const Home = () => {
           />
           <HorizontalList
             title="Top Products"
-            data={categories}
+            data={products}
             link="home/top-products"
           />
 

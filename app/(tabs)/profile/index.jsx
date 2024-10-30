@@ -1,15 +1,37 @@
 import { Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = () => {
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const storedName = await AsyncStorage.getItem("name");
+        if (storedName) {
+          setUser(storedName);
+        } else {
+          console.log("No name found in AsyncStorage");
+        }
+      } catch (error) {
+        console.error("Error retrieving name:", error);
+      }
+    };
+    getUser();
+  }, []);
+  const removeAndLogout = async () => {
+    await AsyncStorage.removeItem("jwtToken");
+    router.replace("/sign-in");
+  };
   return (
     <SafeAreaView>
       <View className="p-4">
         <Text className="text-2xl font-semibold text-green-600">
-          Hello, <Text className="text-black">Ashish</Text>
+          Hello, <Text className="text-black">{user}</Text>
         </Text>
 
         <View className="bg-accent rounded-3xl mt-8 h-full">
@@ -49,12 +71,16 @@ const Profile = () => {
               <Text className="text-lg ml-4">About Us</Text>
             </View>
           </Link>
-          <Link className="p-4 border-b border-gray-300" href="#">
+          <TouchableOpacity
+            onPress={removeAndLogout}
+            className="p-4 border-b border-gray-300"
+            href="#"
+          >
             <View className=" flex-row items-center">
               <MaterialIcons name="exit-to-app" size={26} color="#55AB60" />
               <Text className="text-lg ml-4">Log Out</Text>
             </View>
-          </Link>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

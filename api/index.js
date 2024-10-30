@@ -16,9 +16,9 @@ const api = axios.create({
 api.interceptors.request.use(
   async (config) => {
     try {
-      const token = await AsyncStorage.getItem("jwtToken"); // Retrieve token from AsyncStorage
+      const token = await AsyncStorage.getItem("jwtToken");
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`; // Attach token to request header
+        config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     } catch (error) {
@@ -43,37 +43,26 @@ export const registerUser = async (userData) => {
 export const getAllCategories = async () => {
   return api.get("/api/category");
 };
+
 export const getAllProducts = async () => {
   return api.get("/api/product");
 };
 
-// // Blog Posts API calls
-// export const fetchPosts = async () => {
-//   return api.get("/api/blog");
-// };
+export const getAProductById = async (id) => {
+  return api.get(`/api/product/${id}`);
+};
 
-// export const fetchPostsByUser = async (userId) => {
-//   return api.get(`/api/blog/user/${userId}`);
-// };
+export const getTopSellingProducts = async () => {
+  return api.get(`/api/product/top-products`);
+};
 
-// export const fetchPostById = async (postId) => {
-//   return api.get(`/api/blog/${postId}`);
-// };
+export const getAllProductsByCategory = async (cat) => {
+  return api.get(`api/products/${cat}`);
+};
 
-// export const createPost = async (postData) => {
-//   return api.post("/api/blog", postData, {
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//     },
-//   });
-// };
-
-// export const updatePost = async (postId, postData) => {
-//   return api.put(`/api/blog/${postId}`, postData);
-// };
-
-// export const deletePost = async (postId) => {
-//   return api.delete(`/api/blog/${postId}`);
-// };
+export const getUserAddress = async () => {
+  const userId = await AsyncStorage.getItem("userId");
+  return api.get(`/api/${userId}/addresses`);
+};
 
 export default api;
