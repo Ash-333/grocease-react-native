@@ -11,7 +11,6 @@ const App = () => {
       try {
         const token = await AsyncStorage.getItem("jwtToken");
         if (token) {
-          // If token exists, navigate to the home screen
           router.replace("/home");
         }
       } catch (error) {
@@ -21,6 +20,7 @@ const App = () => {
 
     checkAuthToken();
   }, []);
+
   return (
     <SafeAreaView>
       <Text className="text-green-500 font-bold">Hello world!</Text>

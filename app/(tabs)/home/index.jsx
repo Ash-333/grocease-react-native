@@ -35,7 +35,6 @@ const Home = () => {
   useEffect(() => {
     const getProducts = async () => {
       const response = await getTopSellingProducts();
-      console.log(response.data);
       setProducts(response.data.topProducts);
     };
     getProducts();
@@ -46,7 +45,7 @@ const Home = () => {
   }
   return (
     <SafeAreaView className="flex-1">
-      <ScrollView nestedScrollEnabled>
+      <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
         <View className="p-4 my-6">
           {/* Search Input Component */}
           <SearchInput />

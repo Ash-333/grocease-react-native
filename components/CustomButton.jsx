@@ -20,7 +20,9 @@ const CustomButton = ({
       }`}
     >
       {imageSource && <Image source={imageSource} className={imageStyle} />}
-      <Text className={`font-semibold text-lg ${textStyle}`}>{title}</Text>
+      <Text className={`font-semibold text-lg font-montserrat ${textStyle}`}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
