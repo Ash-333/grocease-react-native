@@ -22,7 +22,7 @@ const RadioCard = ({ item, selectedItem, setSelectedItem }) => {
             <View className="h-4 w-4 rounded-full bg-primary"></View>
           )}
         </View>
-        <View className="w-72 h-28 ml-2 rounded-xl shadow-xl p-4 bg-white">
+        <View className="w-72 h-28 ml-2 rounded-xl  p-4 bg-white shadow-xl">
           <View className="flex-row justify-between items-center">
             <View className="flex-row items-center">
               <MaterialCommunityIcons

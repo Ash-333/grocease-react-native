@@ -29,9 +29,16 @@ const Card = ({ item }) => {
 
   const handleAddCart = async () => {
     if (isInCart) {
-      router.push("/cart");
+      router.replace("/cart");
     } else {
-      await addToCart(item._id, item.name, 1, item.price, item.image);
+      await addToCart(
+        item._id,
+        item.name,
+        1,
+        item.price,
+        item.category.name,
+        item.image
+      );
       setIsInCart(true);
     }
   };

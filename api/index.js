@@ -1,5 +1,3 @@
-// api/apiClient.js
-
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -63,6 +61,10 @@ export const getAllProductsByCategory = async (cat) => {
 export const getUserAddress = async () => {
   const userId = await AsyncStorage.getItem("userId");
   return api.get(`/api/${userId}/addresses`);
+};
+
+export const addNewAddress = async (data) => {
+  return api.post("/api/addresses", data);
 };
 
 export default api;

@@ -6,31 +6,39 @@ export async function initializeDatabase() {
   try {
     // Open database within an async function
     db = await SQLite.openDatabaseAsync("databaseName");
+    await db.runAsync("DROP TABLE cart");
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS cart (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        product_id INTEGER UNIQUE,
+        productId INTEGER UNIQUE,
         name TEXT,
         quantity INTEGER,
         price REAL,
+        category TEXT,
         image TEXT
       );
     `);
 
     // await db.execAsync(`DELETE FROM cart;`);
-    console.log("Database connected successfully");
+    // console.log("Database connected successfully");
   } catch (error) {
     console.error("Database initialization failed:", error);
   }
 }
 
-export async function addToCart(product_id, name, quantity, price, image) {
+export async function addToCart(
+  productId,
+  name,
+  quantity,
+  price,
+  category,
+  image
+) {
   await db.runAsync(
-    `INSERT OR REPLACE INTO cart (product_id, name, quantity, price, image) VALUES (?, ?, ?, ?, ?);`,
-    [product_id, name, quantity, price, image]
+    `INSERT OR REPLACE INTO cart (productId, name, quantity, price, category, image) VALUES (?, ?, ?, ?, ?, ?);`,
+    [productId, name, quantity, price, category, image]
   );
-  console.log(`added ${name} to cart`);
 }
 
 export async function getCartItems() {
@@ -38,16 +46,15 @@ export async function getCartItems() {
   return result;
 }
 
-export async function updateCartItem(product_id, quantity) {
-  await db.runAsync(`UPDATE cart SET quantity = ? WHERE product_id = ?;`, [
+export async function updateCartItem(productId, quantity) {
+  await db.runAsync(`UPDATE cart SET quantity = ? WHERE productId = ?;`, [
     quantity,
-    product_id,
+    productId,
   ]);
-  console.log("quantity updated");
 }
 
-export async function removeFromCart(product_id) {
-  await db.runAsync(`DELETE FROM cart WHERE product_id = ?;`, [product_id]);
+export async function removeFromCart(productId) {
+  await db.runAsync(`DELETE FROM cart WHERE productId = ?;`, [productId]);
 }
 export async function clearCart() {
   await db.runAsync(`DELETE FROM cart;`);

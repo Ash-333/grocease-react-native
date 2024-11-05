@@ -13,7 +13,9 @@ const FormField = ({
   const [showPassword, setShowPassword] = useState(false);
   return (
     <View className={`space-y-2 ${otherStyles}`}>
-      <Text className="text-base text-gray-600 font-medium">{title}</Text>
+      <Text className="text-base text-heading font-medium font-montserrat">
+        {title}
+      </Text>
       <View className="border broder-gray-400 flex-row w-full h-16 px-4 rounded-2xl focus:border-secondary items-center">
         <TextInput
           className="flex-1 font-psemibold text-base"
