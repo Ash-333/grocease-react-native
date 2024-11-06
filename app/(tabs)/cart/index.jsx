@@ -6,11 +6,11 @@ import {
   removeFromCart,
 } from "../../../db/index.js";
 import { router, useFocusEffect } from "expo-router";
-import CartItem from "../../../components/CartItem.jsx";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../../constants/images.js";
 import CustomButton from "../../../components/CustomButton.jsx";
 import { StatusBar } from "expo-status-bar";
+import CartItem from "../../../components/cart/CartItem.jsx";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);

@@ -6,7 +6,6 @@ export async function initializeDatabase() {
   try {
     // Open database within an async function
     db = await SQLite.openDatabaseAsync("databaseName");
-    await db.runAsync("DROP TABLE cart");
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS cart (

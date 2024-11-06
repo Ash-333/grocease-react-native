@@ -49,6 +49,7 @@ const Address = () => {
           </TouchableOpacity>
           {/**address radio button */}
           <FlatList
+            className="mb-16"
             data={address}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item._id}
@@ -63,7 +64,7 @@ const Address = () => {
                       <View className="h-4 w-4 rounded-full bg-primary"></View>
                     )}
                   </View>
-                  <View className="w-72 h-28 ml-2 rounded-xl shadow-xl p-4 bg-white">
+                  <View className="w-72 h-28 ml-2 rounded-xl p-4 bg-white drop-shadow-xl">
                     <View className="flex-row justify-between items-center">
                       <View className="flex-row items-center">
                         <MaterialCommunityIcons

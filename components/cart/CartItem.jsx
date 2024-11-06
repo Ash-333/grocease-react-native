@@ -14,7 +14,6 @@ const CartItem = ({ item, increase, decrease, deleteItem }) => {
       />
 
       <View className="flex-1 justify-between ml-5">
-        {/* Top Row: Item Name and Remove Icon */}
         <View className="flex-row items-center justify-between mb-2">
           <Text
             className="text-lg font-montserrat font-semibold flex-1"
