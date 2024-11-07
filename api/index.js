@@ -67,4 +67,8 @@ export const addNewAddress = async (data) => {
   return api.post("/api/addresses", data);
 };
 
+export const placeOrder = async (orderData) => {
+  return api.post("/api/order", orderData);
+};
+
 export default api;

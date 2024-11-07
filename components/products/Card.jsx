@@ -13,7 +13,7 @@ const Card = ({ item }) => {
       try {
         const cartItems = await getCartItems();
         const itemInCart = cartItems.some(
-          (cartItem) => cartItem.product_id === item._id
+          (cartItem) => cartItem.productId === item._id
         );
         setIsInCart(itemInCart);
       } catch (error) {

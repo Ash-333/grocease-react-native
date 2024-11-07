@@ -4,6 +4,8 @@ import { getAllCategories } from "../../../../api/index";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import CategoryCard from "../../../../components/CategoryCard";
+import { TouchableOpacity } from "react-native";
+import { router } from "expo-router";
 
 const TopCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -24,11 +26,17 @@ const TopCategories = () => {
 
     getCategory();
   }, []);
+
+  const handleBack = () => {
+    router.back();
+  };
   return (
     <SafeAreaView className="flex-1">
       <View className="p-4 w-screen">
         <View className="flex-row items-center mb-4">
-          <MaterialIcons name="keyboard-arrow-left" size={24} color="black" />
+          <TouchableOpacity onPress={handleBack}>
+            <MaterialIcons name="keyboard-arrow-left" size={24} color="black" />
+          </TouchableOpacity>
           <Text className="text-xl font-bold text-center ">
             Explore all categories
           </Text>

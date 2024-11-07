@@ -27,12 +27,21 @@ const Address = () => {
     getAddress();
   }, []);
 
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
     <SafeAreaView>
       <View className="bg-primary">
-        <Text className="text-xl font-semibold text-white p-4">
-          My Addresses
-        </Text>
+        <View className="flex-row items-center">
+          <TouchableOpacity onPress={handleBack}>
+            <MaterialIcons name="keyboard-arrow-left" size={26} color="white" />
+          </TouchableOpacity>
+          <Text className="text-xl font-semibold text-white p-4">
+            My Addresses
+          </Text>
+        </View>
         <View className="p-4 rounded-t-2xl mt-12 bg-white h-full">
           <TouchableOpacity
             onPress={openModal}

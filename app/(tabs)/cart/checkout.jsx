@@ -1,17 +1,17 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import CheckoutItem from "../../../components/cart/CheckoutItem";
-import { getUserAddress } from "../../../api";
+import { getUserAddress, placeOrder } from "../../../api";
 import { TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import CustomButton from "../../../components/CustomButton";
+import { clearCart } from "../../../db";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Checkout = () => {
   const { cartItems, total } = useLocalSearchParams();
   const [address, setAddress] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
   const parsedCartItems = JSON.parse(cartItems);
 
   useEffect(() => {
@@ -34,6 +34,29 @@ const Checkout = () => {
 
   const handleChangeAddress = () => {
     router.push("/profile/address");
+  };
+
+  const handleCheckout = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    const order = {
+      userId: userId,
+      items: items,
+      total: total,
+      shippingAddress: address,
+    };
+
+    try {
+      const response = await placeOrder(order);
+      console.log(response);
+      if (response.status === 200 || response.status === 201) {
+        clearCart();
+        router.replace("/cart");
+      } else {
+        Alert.alert("Order could not be placed. Please try again.");
+      }
+    } catch (error) {
+      Alert.alert("Something went wrong");
+    }
   };
 
   return (
@@ -63,7 +86,7 @@ const Checkout = () => {
         containerStyles={"w-full h-12 mt-6"}
         title={"Place Order"}
         textStyle={"text-white"}
-        handlePress={"handleCheckout"}
+        handlePress={handleCheckout}
       />
     </SafeAreaView>
   );

@@ -74,7 +74,7 @@ export default function Cart() {
   const handleCheckout = () => {
     total = discountedTotal + shippingCharges;
     router.push({
-      pathname: "/cart/checkout",
+      pathname: "/(tabs)/cart/checkout",
       params: {
         cartItems: JSON.stringify(cartItems),
         total: total,
