@@ -93,7 +93,7 @@ export default function Cart() {
 
   // Render footer with totals and checkout button
   const renderFooter = () => (
-    <>
+    <View>
       <View className="bg-white w-full rounded-lg shadow-lg mt-4">
         <View className="flex-row items-center justify-between p-2 border-b border-subheading">
           <Text className="text-base text-heading">Total MRP</Text>
@@ -124,7 +124,7 @@ export default function Cart() {
         textStyle={"text-white"}
         handlePress={handleCheckout}
       />
-    </>
+    </View>
   );
 
   return (
@@ -143,7 +143,7 @@ export default function Cart() {
         ListHeaderComponent={
           <Text className="text-2xl font-semibold mb-4">Cart</Text>
         }
-        ListFooterComponent={renderFooter}
+        ListFooterComponent={cartItems.length > 0 ? renderFooter : null}
         ListEmptyComponent={renderEmptyCart}
         showsVerticalScrollIndicator={false}
       />

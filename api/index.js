@@ -71,4 +71,13 @@ export const placeOrder = async (orderData) => {
   return api.post("/api/order", orderData);
 };
 
+export const getAllOrders = async () => {
+  const userId = await AsyncStorage.getItem("userId");
+  return api.get(`/api/orders/${userId}`);
+};
+
+export const getOrderStatus = async (orderId) => {
+  return api.get(`/api/order/${orderId}`);
+};
+
 export default api;
